@@ -647,6 +647,29 @@ random.seed()
 pp = pprint.PrettyPrinter(sort_dicts = False)
 
 
+#With GUI
+
+root = tk.Tk()
+root.geometry("600x400")
+root.title("DnD Random Generator")
+
+Title = tk.Label(root, text = "DnD Random Generator").place(x = 200, y = 20)
+
+GenRace = tk.Button(root, text = "Generate Race", command = RacesGUI). place(x = 40, y = 50)
+
+GenClass = tk.Button(root, text = "Generate Class"). place(x = 40, y = 80)
+
+#RaceInfo = tk.Button(root, text = "See Race Info"). place(x = 40, y = 110)
+
+#ClassInfo = tk.Button(root, text = "See Class Info"). place(x = 40, y = 140)
+
+
+
+root.mainloop()
+
+
+
+
 # No GUI way to do it 
 # while True:
 #     os.system("cls")
@@ -715,25 +738,3 @@ pp = pprint.PrettyPrinter(sort_dicts = False)
 #     else :
 #         os.system("cls")
 #         input("Please enter a valid option")
-
-
-
-#With GUI
-
-root = tk.Tk()
-root.geometry("600x400")
-root.title("DnD Random Generator")
-
-Title = tk.Label(root, text = "DnD Random Generator").place(x = 200, y = 20)
-
-GenRace = tk.Button(root, text = "Generate Race", command = RacesGUI). place(x = 40, y = 50)
-
-GenClass = tk.Button(root, text = "Generate Class"). place(x = 40, y = 80)
-
-#RaceInfo = tk.Button(root, text = "See Race Info"). place(x = 40, y = 110)
-
-#ClassInfo = tk.Button(root, text = "See Class Info"). place(x = 40, y = 140)
-
-
-
-root.mainloop()
