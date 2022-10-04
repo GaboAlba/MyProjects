@@ -1,8 +1,7 @@
 """
 DnD Character Creation from API
 
-This program will pull data from an API and create a random character for your DnD campaign. 
-It will calculate proficiencies and distribute skill points accordingly. 
+This program will pull data from an API and create a random character for your DnD campaign.  
 
 """
 # Importing necessary libraries
@@ -39,6 +38,8 @@ RacesDict = {
             "Human" : MainUrl + "/races/human",
             "Tiefling" : MainUrl + "/races/tiefling"   }
 
+
+# Defining URL where Race Image can be found
 RacesImages = {
             "Dragonborn" : "https://www.dndbeyond.com/avatars/thumbnails/6/340/420/618/636272677995471928.png", 
             "Dwarf" : "https://www.dndbeyond.com/avatars/thumbnails/6/254/420/618/636271781394265550.png",
@@ -67,6 +68,8 @@ ClassesDict = {
             "Warlock" : MainUrl + "/classes/warlock" ,
             "Wizard" : MainUrl + "/classes/wizard" ,}
 
+
+# Defining URL where Class image can be found 
 ClassesImages = {
             "Barbarian" :  "https://www.dndbeyond.com/avatars/thumbnails/6/342/420/618/636272680339895080.png", 
             "Bard" :  "https://www.dndbeyond.com/avatars/thumbnails/6/369/420/618/636272705936709430.png",
@@ -82,20 +85,24 @@ ClassesImages = {
             "Wizard" :  "https://www.dndbeyond.com/avatars/thumbnails/6/357/420/618/636272696881281556.png" ,}
 
 
+
+# Setting up page with tab title as DnD Character Creation, and the URL to the page icon
 stl.set_page_config(page_title = "DnD Character Creation", 
                     page_icon = "https://cdn.shopify.com/s/files/1/0057/6408/7896/articles/DD-Logo_700x.jpg?v=1572377159)",
                     layout = "wide")
 stl.title("DnD Character Creation")
 
 
+
+# Defining actions to be taken if the "Generate Race" button is pressed
 if stl.button("Generate Race"):
-    RandomRace = requests.get(CreateRandomRace(RacesDict))
-    RaceName = RandomRace.json()["name"]
-    RandomRace = pd.DataFrame([RandomRace.json()])
-    AbilityScores = list(RandomRace.pop("ability_bonuses"))[0]
-    Languages = list(RandomRace.pop("languages"))[0]
-    Traits = list(RandomRace.pop("traits"))[0]
-    Subraces = list(RandomRace.pop("subraces"))[0]
+    RandomRace = requests.get(CreateRandomRace(RacesDict))                  #Get information from API
+    RaceName = RandomRace.json()["name"]                                    #Extract race name out of API
+    RandomRace = pd.DataFrame([RandomRace.json()])                          #Store the Random Race in a DataFrame
+    AbilityScores = list(RandomRace.pop("ability_bonuses"))[0]              #Store the Ability bonuses in another variable
+    Languages = list(RandomRace.pop("languages"))[0]                        #Store the Languages in another variable
+    Traits = list(RandomRace.pop("traits"))[0]                              #Store the Traits in another variable
+    Subraces = list(RandomRace.pop("subraces"))[0]                          #Store the Subraces in another variable
 
     #Transposing data to have it look nice in the table 
     RandomRace = RandomRace.transpose()
@@ -111,61 +118,75 @@ if stl.button("Generate Race"):
     for Ability in AbilityScores :
         stl.text("You have a bonus of " + str(Ability['bonus']) + " in your " + Ability['ability_score']['name'])
 
+    #Displaying Languages 
     stl.subheader("Your race languages are:")
     for Language in Languages :
         stl.text("You can speak " + Language['name'])
 
+    #Displaying traits
     stl.subheader("Your race traits are:")
     for Trait in Traits :
         stl.text("You have the " + Trait["name"] + " trait")
     
+    #Displaying Subraces 
     stl.subheader("Your race subraces are:")
     for SubRace in Subraces :
         stl.text("You can choose the " + SubRace["name"] + " subrace")
 
-if stl.button("Generate Class"):
-    RandomClass = requests.get(CreateRandomRace(ClassesDict))
-    ClassName = RandomClass.json()["name"]
-    RandomClass = pd.DataFrame([RandomClass.json()])
 
-    ProficiencyChoices = list(RandomClass.pop("proficiency_choices"))[0]
-    Proficiencies = list(RandomClass.pop("proficiencies"))[0]
-    SavingThrows = list(RandomClass.pop("saving_throws"))[0]
-    StartingEquipment = list(RandomClass.pop("starting_equipment"))[0]
-    StartingEquipmentOptions = list(RandomClass.pop("starting_equipment_options"))[0]
-    MultiClassing = list(RandomClass.pop("multi_classing"))[0]
-    SubClasses = list(RandomClass.pop("subclasses"))[0]
-    if "spellcasting" in RandomClass :
-        Spellcasting = list(RandomClass.pop("spellcasting"))[0]
+# Defining actions to be taken if the "Generate Class" button is pressed
+if stl.button("Generate Class"):
+    RandomClass = requests.get(CreateRandomRace(ClassesDict))                           #Get information from API
+    ClassName = RandomClass.json()["name"]                                              #Extract class name out of API
+    RandomClass = pd.DataFrame([RandomClass.json()])                                    #Store the Random Class in a DataFrame
+
+    ProficiencyChoices = list(RandomClass.pop("proficiency_choices"))[0]                #Store the Proficiency Choices in another variable  
+    Proficiencies = list(RandomClass.pop("proficiencies"))[0]                           #Store the Proficiencies in another variable
+    SavingThrows = list(RandomClass.pop("saving_throws"))[0]                            #Store the Saving Throws in another variable
+    StartingEquipment = list(RandomClass.pop("starting_equipment"))[0]                  #Store the Starting Equipment in another variable
+    StartingEquipmentOptions = list(RandomClass.pop("starting_equipment_options"))[0]   #Store the Starting Equipment Options in another variable
+    MultiClassing = list(RandomClass.pop("multi_classing"))[0]                          #Store the Multi Class in another variable
+    SubClasses = list(RandomClass.pop("subclasses"))[0]                                 #Store the Sub Classes in another variable
+    if "spellcasting" in RandomClass :                                                  #Check as not all classes can cast spells
+        Spellcasting = list(RandomClass.pop("spellcasting"))[0]                         #Store the Spellcasting in another variable
     
+    #Transposing data to have it look nice in the table
     RandomClass = RandomClass.transpose()
 
+    #Display in text and image your class 
     stl.header("Your class is -> " + ClassName)
     stl.image(ClassesImages[ClassName])
 
+    #Display class stats
     stl.header("Your class stats are: ")
     stl.write(RandomClass)
 
+    #Displaying Proficiency Choices 
     stl.header("Your proficiency choices are: ")
     for choices in ProficiencyChoices :
         stl.text(choices["desc"])
 
+    #Displaying Proficiencies 
     stl.header("Your proficiencies are: ")
     for proficiency in Proficiencies :
         stl.text(proficiency["name"])
 
+    #Displaying Saving Throws
     stl.header("Your saving throws are: ")
     for throw in SavingThrows :
         stl.text(throw["name"])
 
+    #Displaying Starting Equipment
     stl.header("Your starting equipment is: ")
     for equipment in StartingEquipment :
         stl.text(str(equipment["quantity"]) + " " + equipment["equipment"]["name"])
 
+    #Displaying Starting Equipment Choices  
     stl.header("Your starting equipment choices are: ")
     for choices in StartingEquipmentOptions :
         stl.text(choices["desc"])
 
+    #Displaying Multi Class 
     stl.header("In order to multi-class you need to: ")
     if "prerequisites" in MultiClassing :
         for prerequisites in MultiClassing["prerequisites"] :
@@ -185,12 +206,12 @@ if stl.button("Generate Class"):
         pass
 
 
+    #Displaying Subclasses 
     stl.header("You can choose the following subclasses: ")
     for subclasses in SubClasses :
         stl.text(subclasses["name"])
 
-    
-    #stl.text()
+    #Displaying Spellcasting, verifying that it exists
     if 'Spellcasting' in globals() :
         stl.header("Your have the following spellcasting abilities: ")
         stl.text(Spellcasting["spellcasting_ability"]["name"] + " is your spellcasting ability")
