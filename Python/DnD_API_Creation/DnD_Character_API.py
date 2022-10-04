@@ -6,6 +6,7 @@ It will calculate proficiencies and distribute skill points accordingly.
 
 """
 # Importing necessary libraries
+from genericpath import exists
 import requests
 import pprint as pp
 import json
@@ -66,19 +67,19 @@ ClassesDict = {
             "Warlock" : MainUrl + "/classes/warlock" ,
             "Wizard" : MainUrl + "/classes/wizard" ,}
 
-# ClassesImages = {
-#             "Barbarian" : MainUrl + "/classes/barbarian", 
-#             "Bard" : MainUrl + "/classes/bard",
-#             "Cleric" : MainUrl + "/classes/cleric",
-#             "Druid" : MainUrl + "/classes/druid" ,
-#             "Fighter" : MainUrl + "/classes/fighter",
-#             "Monk" : MainUrl + "/classes/monk",
-#             "Paladin" : MainUrl + "/classes/paladin",
-#             "Ranger" : MainUrl + "/classes/ranger" ,  
-#             "Rogue" : MainUrl + "/classes/rogue" ,
-#             "Sorcerer" : MainUrl + "/classes/sorcerer" ,
-#             "Warlock" : MainUrl + "/classes/warlock" ,
-#             "Wizard" : MainUrl + "/classes/wizard" ,}
+ClassesImages = {
+            "Barbarian" :  "https://www.dndbeyond.com/avatars/thumbnails/6/342/420/618/636272680339895080.png", 
+            "Bard" :  "https://www.dndbeyond.com/avatars/thumbnails/6/369/420/618/636272705936709430.png",
+            "Cleric" :  "https://www.dndbeyond.com/avatars/thumbnails/6/371/420/618/636272706155064423.png",
+            "Druid" :  "https://www.dndbeyond.com/avatars/thumbnails/6/346/420/618/636272691461725405.png" ,
+            "Fighter" :  "https://www.dndbeyond.com/avatars/thumbnails/6/359/420/618/636272697874197438.png",
+            "Monk" : "https://www.dndbeyond.com/avatars/thumbnails/6/489/420/618/636274646181411106.png",
+            "Paladin" :  "https://www.dndbeyond.com/avatars/thumbnails/6/365/420/618/636272701937419552.png",
+            "Ranger" :  "https://www.dndbeyond.com/avatars/thumbnails/6/367/420/618/636272702826438096.png" ,  
+            "Rogue" :  "https://www.dndbeyond.com/avatars/thumbnails/6/384/420/618/636272820319276620.png" ,
+            "Sorcerer" :  "https://www.dndbeyond.com/avatars/thumbnails/6/485/420/618/636274643818663058.png" ,
+            "Warlock" :  "https://www.dndbeyond.com/avatars/thumbnails/6/375/420/618/636272708661726603.png" ,
+            "Wizard" :  "https://www.dndbeyond.com/avatars/thumbnails/6/357/420/618/636272696881281556.png" ,}
 
 
 stl.set_page_config(page_title = "DnD Character Creation", 
@@ -90,15 +91,13 @@ stl.title("DnD Character Creation")
 if stl.button("Generate Race"):
     RandomRace = requests.get(CreateRandomRace(RacesDict))
     RaceName = RandomRace.json()["name"]
-    # AbilityScores = pd.DataFrame([RandomRace.json()["ability_bonuses"]]).transpose()
-    # Languages = pd.DataFrame([RandomRace.json()["languages"]]).transpose()
-    # Traits = pd.DataFrame([RandomRace.json()["traits"]]).transpose()
-    # Subraces = pd.DataFrame([RandomRace.json()["subraces"]]).transpose()
     RandomRace = pd.DataFrame([RandomRace.json()])
     AbilityScores = list(RandomRace.pop("ability_bonuses"))[0]
     Languages = list(RandomRace.pop("languages"))[0]
     Traits = list(RandomRace.pop("traits"))[0]
     Subraces = list(RandomRace.pop("subraces"))[0]
+
+    #Transposing data to have it look nice in the table 
     RandomRace = RandomRace.transpose()
     
     #Display in text and image your race 
@@ -126,4 +125,78 @@ if stl.button("Generate Race"):
 
 if stl.button("Generate Class"):
     RandomClass = requests.get(CreateRandomRace(ClassesDict))
-    stl.write(RandomClass.json())
+    ClassName = RandomClass.json()["name"]
+    RandomClass = pd.DataFrame([RandomClass.json()])
+
+    ProficiencyChoices = list(RandomClass.pop("proficiency_choices"))[0]
+    Proficiencies = list(RandomClass.pop("proficiencies"))[0]
+    SavingThrows = list(RandomClass.pop("saving_throws"))[0]
+    StartingEquipment = list(RandomClass.pop("starting_equipment"))[0]
+    StartingEquipmentOptions = list(RandomClass.pop("starting_equipment_options"))[0]
+    MultiClassing = list(RandomClass.pop("multi_classing"))[0]
+    SubClasses = list(RandomClass.pop("subclasses"))[0]
+    if "spellcasting" in RandomClass :
+        Spellcasting = list(RandomClass.pop("spellcasting"))[0]
+    
+    RandomClass = RandomClass.transpose()
+
+    stl.header("Your class is -> " + ClassName)
+    stl.image(ClassesImages[ClassName])
+
+    stl.header("Your class stats are: ")
+    stl.write(RandomClass)
+
+    stl.header("Your proficiency choices are: ")
+    for choices in ProficiencyChoices :
+        stl.text(choices["desc"])
+
+    stl.header("Your proficiencies are: ")
+    for proficiency in Proficiencies :
+        stl.text(proficiency["name"])
+
+    stl.header("Your saving throws are: ")
+    for throw in SavingThrows :
+        stl.text(throw["name"])
+
+    stl.header("Your starting equipment is: ")
+    for equipment in StartingEquipment :
+        stl.text(str(equipment["quantity"]) + " " + equipment["equipment"]["name"])
+
+    stl.header("Your starting equipment choices are: ")
+    for choices in StartingEquipmentOptions :
+        stl.text(choices["desc"])
+
+    stl.header("In order to multi-class you need to: ")
+    if "prerequisites" in MultiClassing :
+        for prerequisites in MultiClassing["prerequisites"] :
+            stl.text("A pre-requisite of a minimum of " + str(prerequisites["minimum_score"]) + 
+                    " in " + prerequisites["ability_score"]["name"])
+
+    if "proficiciencies" in MultiClassing :
+        for proficiencies in MultiClassing["proficiencies"] :
+            stl.text("A pre-requisite of proficiency in " + proficiencies["name"])
+
+    if "proficiency_choices" in MultiClassing :
+        for choices in MultiClassing["proficiency_choices"] :
+            stl.text("Choose " + str(choices["choose"]) +  " proficiency from:")
+            for options in choices["from"]["options"] :
+                stl.text(options["item"]["name"])
+    else :
+        pass
+
+
+    stl.header("You can choose the following subclasses: ")
+    for subclasses in SubClasses :
+        stl.text(subclasses["name"])
+
+    
+    #stl.text()
+    if 'Spellcasting' in globals() :
+        stl.header("Your have the following spellcasting abilities: ")
+        stl.text(Spellcasting["spellcasting_ability"]["name"] + " is your spellcasting ability")
+        for abilities in Spellcasting["info"] :
+            stl.subheader(abilities["name"])
+            for description in abilities["desc"] :
+                stl.text(description)
+    else :
+        pass
