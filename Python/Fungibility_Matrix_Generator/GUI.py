@@ -14,12 +14,12 @@ def productParameters(product) :
     return GeneralDict[product]
 
 stl.set_page_config(page_title = "PPV Collateral Fungibility Matrix Generator",
-                    page_icon = "Intel-logo-2022.png", 
+                    page_icon = "./Intel-logo-2022.png", 
                     menu_items= {
                         'Get Help' : 'mailto:crat.sthi.eng@intel.com',
                         'Report a Bug' : 'mailto:gabriel.alba.romero@intel.com'
                     })
-stl.image("Intel-logo-2022.png")
+stl.image("./Intel-logo-2022.png")
 stl.title("PPV Collateral Fungibility Matrix Generator")
 
 
