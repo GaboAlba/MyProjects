@@ -32,8 +32,9 @@ class Product_File :
             pass
         else :
             try :
-                df = pd.read_csv(path, header = 0, delimiter= ',')
+                df = pd.read_csv(path,header = 0, delimiter= ',')
             except FileNotFoundError:
+                print(path)
                 print("ERROR: Product file does not exist")
             else :
                 if 'Product' in df.columns :

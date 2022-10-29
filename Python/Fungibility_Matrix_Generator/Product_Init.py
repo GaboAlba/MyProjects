@@ -180,10 +180,126 @@ class Product_Init :
                                                         case "CXL" :
                                                             SPR_WMCC_AP_CXL = Product_File("SPR","CXL","WMCC","AP")
                                                             self.ObjList.append(SPR_WMCC_AP_CXL)
+                                case "EMR" : #Verify other flavors UCC y XCC
+                                     match flavor[4:] :
+                                        case "XCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            EMR_XCC_MB_MAIN = Product_File("EMR","MAIN","XCC","MB")
+                                                            self.ObjList.append(EMR_XCC_MB_MAIN)
+                                                        case "SDE" :
+                                                            EMR_XCC_MB_SDE = Product_File("EMR","SDE","XCC","MB")
+                                                            self.ObjList.append(EMR_XCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            EMR_XCC_AP_MAIN = Product_File("EMR","MAIN","XCC","AP")
+                                                            self.ObjList.append(EMR_XCC_AP_MAIN)
+                                                        case "SDE" :
+                                                            EMR_XCC_AP_SDE = Product_File("EMR","SDE","XCC","AP")
+                                                            self.ObjList.append(EMR_XCC_AP_SDE)
+                                        case "MCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            EMR_MCC_MB_MAIN = Product_File("EMR","MAIN","MCC","MB")
+                                                            self.ObjList.append(EMR_MCC_MB_MAIN)
+                                                        case "SDE" :
+                                                            EMR_MCC_MB_SDE = Product_File("EMR","SDE","MCC","MB")
+                                                            self.ObjList.append(EMR_MCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            EMR_MCC_AP_MAIN = Product_File("EMR","MAIN","MCC","AP")
+                                                            self.ObjList.append(EMR_MCC_AP_MAIN)
+                                                        case "SDE" :
+                                                            EMR_MCC_AP_SDE = Product_File("EMR","SDE","MCC","AP")
+                                                            self.ObjList.append(EMR_MCC_AP_SDE)
                                 case "GNR" : #Verify other flavors UCC y XCC
-                                    pass
+                                    match flavor[4:] :
+                                        case "XCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            GNR_XCC_MB_MAIN = Product_File("GNR","MAIN","XCC","MB")
+                                                            self.ObjList.append(GNR_XCC_MB_MAIN)
+                                                        case "SDE" :
+                                                            GNR_XCC_MB_SDE = Product_File("GNR","SDE","XCC","MB")
+                                                            self.ObjList.append(GNR_XCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            GNR_XCC_AP_MAIN = Product_File("GNR","MAIN","XCC","AP")
+                                                            self.ObjList.append(GNR_XCC_AP_MAIN)
+                                                        case "SDE" :
+                                                            GNR_XCC_AP_SDE = Product_File("GNR","SDE","XCC","AP")
+                                                            self.ObjList.append(GNR_XCC_AP_SDE)
+                                        case "UCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            GNR_UCC_MB_MAIN = Product_File("GNR","MAIN","UCC","MB")
+                                                            self.ObjList.append(GNR_UCC_MB_MAIN)
+                                                        case "SDE" :
+                                                            GNR_UCC_MB_SDE = Product_File("GNR","SDE","UCC","MB")
+                                                            self.ObjList.append(GNR_UCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            GNR_UCC_AP_MAIN = Product_File("GNR","MAIN","UCC","AP")
+                                                            self.ObjList.append(GNR_UCC_AP_MAIN)
+                                                        case "SDE" :
+                                                            GNR_UCC_AP_SDE = Product_File("GNR","SDE","UCC","AP")
+                                                            self.ObjList.append(GNR_UCC_AP_SDE)
+                                        case "DE" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            GNR_DE_MB_MAIN = Product_File("GNR","MAIN","DE","MB")
+                                                            self.ObjList.append(GNR_DE_MB_MAIN)
+                                                        case "SDE" :
+                                                            GNR_DE_MB_SDE = Product_File("GNR","SDE","DE","MB")
+                                                            self.ObjList.append(GNR_DE_MB_SDE)
+                                                case "AP" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            GNR_DE_AP_MAIN = Product_File("GNR","MAIN","DE","AP")
+                                                            self.ObjList.append(GNR_DE_AP_MAIN)
+                                                        case "SDE" :
+                                                            GNR_DE_AP_SDE = Product_File("GNR","SDE","DE","AP")
+                                                            self.ObjList.append(GNR_DE_AP_SDE)
                                 case "SRF" : #Verify other flavors
-                                    pass
+                                    match flavor[4:] :
+                                        case "LCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            SRF_LCC_MB_MAIN = Product_File("SRF","MAIN","LCC","MB")
+                                                            self.ObjList.append(SRF_LCC_MB_MAIN)
+                                                        case "CXL" :
+                                                            SRF_LCC_MB_CXL = Product_File("SRF","CXL","LCC","MB")
+                                                            self.ObjList.append(SRF_LCC_MB_CXL)
+                                                        case "SDE" :
+                                                            SRF_LCC_MB_SDE = Product_File("SRF","SDE","LCC","MB")
+                                                            self.ObjList.append(SRF_LCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            SRF_LCC_AP_MAIN = Product_File("SRF","MAIN","LCC","AP")
+                                                            self.ObjList.append(SRF_LCC_AP_MAIN)
+                                                        case "CXL" :
+                                                            SRF_LCC_AP_CXL = Product_File("SRF","CXL","LCC","AP")
+                                                            self.ObjList.append(SRF_LCC_AP_CXL)
+                                                        case "SDE" :
+                                                            SRF_LCC_AP_SDE = Product_File("SRF","SDE","LCC","AP")
+                                                            self.ObjList.append(SRF_LCC_AP_SDE)
         def SingleProductFlavor(product, flavor) :
             for component in self.comList:
                 #print(component)
@@ -348,10 +464,126 @@ class Product_Init :
                                                 case "CXL" :
                                                     SPR_WMCC_AP_CXL = Product_File("SPR","CXL","WMCC","AP")
                                                     self.ObjList.append(SPR_WMCC_AP_CXL)
+                        case "EMR" : #Verify other flavors UCC y XCC
+                                     match flavor :
+                                        case "XCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            EMR_XCC_MB_MAIN = Product_File("EMR","MAIN","XCC","MB")
+                                                            self.ObjList.append(EMR_XCC_MB_MAIN)
+                                                        case "SDE" :
+                                                            EMR_XCC_MB_SDE = Product_File("EMR","SDE","XCC","MB")
+                                                            self.ObjList.append(EMR_XCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion[4:] :
+                                                        case "MAIN" :
+                                                            EMR_XCC_AP_MAIN = Product_File("EMR","MAIN","XCC","AP")
+                                                            self.ObjList.append(EMR_XCC_AP_MAIN)
+                                                        case "SDE" :
+                                                            EMR_XCC_AP_SDE = Product_File("EMR","SDE","XCC","AP")
+                                                            self.ObjList.append(EMR_XCC_AP_SDE)
+                                        case "MCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            EMR_MCC_MB_MAIN = Product_File("EMR","MAIN","MCC","MB")
+                                                            self.ObjList.append(EMR_MCC_MB_MAIN)
+                                                        case "SDE" :
+                                                            EMR_MCC_MB_SDE = Product_File("EMR","SDE","MCC","MB")
+                                                            self.ObjList.append(EMR_MCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            EMR_MCC_AP_MAIN = Product_File("EMR","MAIN","MCC","AP")
+                                                            self.ObjList.append(EMR_MCC_AP_MAIN)
+                                                        case "SDE" :
+                                                            EMR_MCC_AP_SDE = Product_File("EMR","SDE","MCC","AP")
+                                                            self.ObjList.append(EMR_MCC_AP_SDE)
                         case "GNR" : #Verify other flavors
-                            pass
+                            match flavor :
+                                        case "XCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            GNR_XCC_MB_MAIN = Product_File("GNR","MAIN","XCC","MB")
+                                                            self.ObjList.append(GNR_XCC_MB_MAIN)
+                                                        case "SDE" :
+                                                            GNR_XCC_MB_SDE = Product_File("GNR","SDE","XCC","MB")
+                                                            self.ObjList.append(GNR_XCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            GNR_XCC_AP_MAIN = Product_File("GNR","MAIN","XCC","AP")
+                                                            self.ObjList.append(GNR_XCC_AP_MAIN)
+                                                        case "SDE" :
+                                                            GNR_XCC_AP_SDE = Product_File("GNR","SDE","XCC","AP")
+                                                            self.ObjList.append(GNR_XCC_AP_SDE)
+                                        case "UCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            GNR_UCC_MB_MAIN = Product_File("GNR","MAIN","UCC","MB")
+                                                            self.ObjList.append(GNR_UCC_MB_MAIN)
+                                                        case "SDE" :
+                                                            GNR_UCC_MB_SDE = Product_File("GNR","SDE","UCC","MB")
+                                                            self.ObjList.append(GNR_UCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            GNR_UCC_AP_MAIN = Product_File("GNR","MAIN","UCC","AP")
+                                                            self.ObjList.append(GNR_UCC_AP_MAIN)
+                                                        case "SDE" :
+                                                            GNR_UCC_AP_SDE = Product_File("GNR","SDE","UCC","AP")
+                                                            self.ObjList.append(GNR_UCC_AP_SDE)
+                                        case "DE" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            GNR_DE_MB_MAIN = Product_File("GNR","MAIN","DE","MB")
+                                                            self.ObjList.append(GNR_DE_MB_MAIN)
+                                                        case "SDE" :
+                                                            GNR_DE_MB_SDE = Product_File("GNR","SDE","DE","MB")
+                                                            self.ObjList.append(GNR_DE_MB_SDE)
+                                                case "AP" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            GNR_DE_AP_MAIN = Product_File("GNR","MAIN","DE","AP")
+                                                            self.ObjList.append(GNR_DE_AP_MAIN)
+                                                        case "SDE" :
+                                                            GNR_DE_AP_SDE = Product_File("GNR","SDE","DE","AP")
+                                                            self.ObjList.append(GNR_DE_AP_SDE)
                         case "SRF" : #Verify other flavors
-                            pass
+                            match flavor :
+                                        case "LCC" :
+                                            match component :
+                                                case  "MB" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            SRF_LCC_MB_MAIN = Product_File("SRF","MAIN","LCC","MB")
+                                                            self.ObjList.append(SRF_LCC_MB_MAIN)
+                                                        case "CXL" :
+                                                            SRF_LCC_MB_CXL = Product_File("SRF","CXL","LCC","MB")
+                                                            self.ObjList.append(SRF_LCC_MB_CXL)
+                                                        case "SDE" :
+                                                            SRF_LCC_MB_SDE = Product_File("SRF","SDE","LCC","MB")
+                                                            self.ObjList.append(SRF_LCC_MB_SDE)
+                                                case "AP" :
+                                                    match insertion :
+                                                        case "MAIN" :
+                                                            SRF_LCC_AP_MAIN = Product_File("SRF","MAIN","LCC","AP")
+                                                            self.ObjList.append(SRF_LCC_AP_MAIN)
+                                                        case "CXL" :
+                                                            SRF_LCC_AP_CXL = Product_File("SRF","CXL","LCC","AP")
+                                                            self.ObjList.append(SRF_LCC_AP_CXL)
+                                                        case "SDE" :
+                                                            SRF_LCC_AP_SDE = Product_File("SRF","SDE","LCC","AP")
+                                                            self.ObjList.append(SRF_LCC_AP_SDE)
         for product in self.prodList :
             #print(product)
             for flavor in self.flavList :
