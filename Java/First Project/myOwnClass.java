@@ -3,8 +3,28 @@
 // They can be distinguished becausde prmitive are all lower case, while non prmitive start with 
 // uppercase
 
+
+// Primitive data types:
+// - Byte, short, long and int for whole numbers
+// - float and double for fractional numbers
+// - char for characters
+// - bool for T/F
+//##############################################################################
+// Byte goes from -128 to 127
+// Short goes from -32,768 to 32767
+// Int goes from  -2,147,483,648 to 2,147,483,647
+// Long goes from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.
+//##############################################################################
+// Double holds 15 decimal digits
+// Float holds from 6 to 7 
+
+// Classes don't need to be imported. As long as they are in the same folder 
+
 public class myOwnClass {
 
+    // Static methods  can be used without creating an object
+    // Private means it is a method you can only use while inside the class. 
+    // Public means it can be accesed anywhere
     private static String printName(String name, int number) {
         
 
