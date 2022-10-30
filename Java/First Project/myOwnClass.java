@@ -16,7 +16,7 @@
 // Long goes from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.
 //##############################################################################
 // Double holds 15 decimal digits
-// Float holds from 6 to 7 
+// Float holds from 6 to 7. ALWAYS suffix float with an "f", else compiler will assume double. Eg 22.4f
 
 // Classes don't need to be imported. As long as they are in the same folder 
 
